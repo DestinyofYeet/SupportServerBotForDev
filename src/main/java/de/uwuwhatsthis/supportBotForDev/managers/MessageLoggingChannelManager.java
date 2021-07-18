@@ -6,6 +6,8 @@ import de.uwuwhatsthis.supportBotForDev.utils.Constants;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class MessageLoggingChannelManager {
     private final ShowcaseServer showcaseServer;
@@ -29,7 +31,14 @@ public class MessageLoggingChannelManager {
             return; // we don't want messages from the bot
         }
 
-        showcaseServer.getMessageLogChannel().sendMessage(new Embed("Message sent in demo server \"" + showcaseServer.getServerName() + "\" by \"" + message.getAuthor().getAsTag() + "\""
-                , message.getContentRaw(), Color.GREEN).build()).queue();
+
+
+        showcaseServer.getMessageLogChannel().sendMessage(new Embed()
+                .addField("MESSAGE LOG:", message.getContentRaw() + "\n\n*Sent at: " + message.getTimeCreated().format(DateTimeFormatter.ofPattern("MMMM dd yyyy, KK:mm:ss a", Locale.ENGLISH)) + "*", false)
+                .setColor(new Color(153,	45,	34))
+                .setAuthor(message.getAuthor().getAsTag() + " | " + showcaseServer.getServerName(), null, message.getAuthor().getEffectiveAvatarUrl())
+                .setFooter("User id: " + message.getAuthor().getId() + " | Time left: " + showcaseServer.convertSecondsToHoursAndMinutes(showcaseServer.getTimeLeft()))
+                .setThumbnail(message.getGuild().getIconUrl())
+                .build()).queue();
     }
 }

@@ -38,6 +38,25 @@ public class Embed {
 
     }
 
+    public Embed(String title){
+        try{
+            builder = new EmbedBuilder();
+            builder.setTitle(title);
+
+        } catch (IllegalArgumentException noted){
+            builder = null;
+        }
+    }
+
+    public Embed(){
+        try{
+            builder = new EmbedBuilder();
+
+        } catch (IllegalArgumentException noted){
+            builder = null;
+        }
+    }
+
     public Embed(String title, String message, Color color, String additionalFooter){
         try{
             EmbedBuilder builder = new EmbedBuilder();
@@ -61,6 +80,11 @@ public class Embed {
         }
     }
 
+    public Embed setColor(Color color){
+        builder.setColor(color);
+        return this;
+    }
+
     public Embed setImage(String image){
         builder.setImage(image);
         return this;
@@ -68,6 +92,26 @@ public class Embed {
 
     public Embed setThumbnail(String image){
         builder.setThumbnail(image);
+        return this;
+    }
+
+    public Embed setFooter(String footer){
+        builder.setFooter(footer);
+        return this;
+    }
+
+    public Embed setAuthor(String author){
+        builder.setAuthor(author);
+        return this;
+    }
+
+    public Embed setAuthor(String author, String url){
+        builder.setAuthor(author, url);
+        return this;
+    }
+
+    public Embed setAuthor(String author, String url, String anotherUrl){
+        builder.setAuthor(author, url, anotherUrl);
         return this;
     }
 
