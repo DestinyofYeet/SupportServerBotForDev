@@ -408,6 +408,10 @@ public class ShowcaseServer implements Runnable {
     }
 
     public String convertSecondsToHoursAndMinutes(Long seconds){
+        if (seconds == null){
+            return "No data";
+        }
+
         int minutes = 0;
         int hours = 0;
 
